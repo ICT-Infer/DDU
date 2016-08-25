@@ -82,14 +82,32 @@ CREATE TABLE topic_resources (
 	UNIQUE(topic, ordering)
 );
 
+CREATE TABLE delivery_types (
+	id	serial PRIMARY KEY,
+	name	varchar(255) NOT NULL,
+	fmtstr	varchar(255) NOT NULL
+
+	UNIQUE(name)
+);
+
+INSERT INTO delivery_types (name, fmtstr) VALUES
+	('Obligatory assignment', 'Oblig %d'),
+	('Prelab', 'Prelab, lab %d')
+	('Journal', 'Journal, lab %d')
+	('Report', 'Report, lab %d');
+
 CREATE TABLE course_deliveries (
 	id		serial PRIMARY KEY,
 	course		integer NOT NULL,
+	delivery_type	integer NOT NULL,
 	name		varchar(255) NOT NULL,
+	num		integer NOT NULL,
 
 	FOREIGN KEY (course) REFERENCES courses,
+	FOREIGN KEY (delivery_type) REFERENCES delivery_types,
 
-	UNIQUE(course, name)
+	UNIQUE(course, delivery_type, name),
+	UNIQUE(course, delivery_type, num)
 );
 
 CREATE TABLE course_delivery_resources (
