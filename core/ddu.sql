@@ -38,6 +38,7 @@ CREATE TABLE institutions (
 CREATE TABLE courses (
 	id		serial PRIMARY KEY,
 	institution	integer NOT NULL,
+	code		varchar(255) NOT NULL,
 	name		varchar(255) NOT NULL,
 	autumn		boolean NOT NULL, -- true: autumn, false: spring.
 	year		integer NOT NULL,
