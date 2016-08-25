@@ -26,6 +26,7 @@ CREATE TABLE locations (
 
 CREATE TABLE institutions (
 	id		serial PRIMARY KEY,
+	slugfrag	varchar(32) NOT NULL,
 	name		varchar(255) NOT NULL,
 	location	integer NOT NULL,
 	description	varchar(255),
@@ -37,25 +38,35 @@ CREATE TABLE institutions (
 
 CREATE TABLE courses (
 	id		serial PRIMARY KEY,
+	slugfrag	varchar(32) NOT NULL,
 	institution	integer NOT NULL,
 	code		varchar(255) NOT NULL,
 	name		varchar(255) NOT NULL,
-	autumn		boolean NOT NULL, -- true: autumn, false: spring.
-	year		integer NOT NULL,
 
 	FOREIGN KEY (institution) REFERENCES institutions,
 
-	UNIQUE(institution, name, autumn, year)
+	UNIQUE(institution, code)
 );
 
-CREATE TABLE topics (
+CREATE TABLE course_semesters (
 	id		serial PRIMARY KEY,
 	course		integer NOT NULL,
-	name		varchar(255) NOT NULL,
+	autumn		boolean NOT NULL, -- true: autumn, false: spring.
+	year		integer NOT NULL,
 
 	FOREIGN KEY (course) REFERENCES courses,
 
-	UNIQUE(course, name)
+	UNIQUE(course, autumn, year)
+);
+
+CREATE TABLE cs_topics (
+	id		serial PRIMARY KEY,
+	course_semester	integer NOT NULL,
+	name		varchar(255) NOT NULL,
+
+	FOREIGN KEY (course_semester) REFERENCES course_semesters,
+
+	UNIQUE(course_semester, name)
 );
 
 CREATE TABLE topic_syllabus (
@@ -64,7 +75,7 @@ CREATE TABLE topic_syllabus (
 	text		varchar(4096) NOT NULL,
 	ordering	integer NOT NULL,
 
-	FOREIGN KEY (topic) REFERENCES topics,
+	FOREIGN KEY (topic) REFERENCES cs_topics,
 
 	UNIQUE(topic, text),
 	UNIQUE(topic, ordering)
@@ -77,7 +88,7 @@ CREATE TABLE topic_resources (
 	url		varchar(4096) NOT NULL,
 	ordering	integer NOT NULL,
 
-	FOREIGN KEY (topic) REFERENCES topics,
+	FOREIGN KEY (topic) REFERENCES cs_topics,
 
 	UNIQUE(topic, url),
 	UNIQUE(topic, ordering)
@@ -97,40 +108,40 @@ INSERT INTO delivery_types (name, fmtstr) VALUES
 	('Journal', 'Journal, lab %d'),
 	('Report', 'Report, lab %d');
 
-CREATE TABLE course_deliveries (
+CREATE TABLE cs_deliveries (
 	id		serial PRIMARY KEY,
-	course		integer NOT NULL,
+	course_semester	integer NOT NULL,
 	delivery_type	integer NOT NULL,
 	name		varchar(255) NOT NULL,
 	num		integer NOT NULL,
 
-	FOREIGN KEY (course) REFERENCES courses,
+	FOREIGN KEY (course_semester) REFERENCES course_semesters,
 	FOREIGN KEY (delivery_type) REFERENCES delivery_types,
 
-	UNIQUE(course, delivery_type, name),
-	UNIQUE(course, delivery_type, num)
+	UNIQUE(course_semester, delivery_type, name),
+	UNIQUE(course_semester, delivery_type, num)
 );
 
-CREATE TABLE course_delivery_resources (
+CREATE TABLE csd_resources (
 	id		serial PRIMARY KEY,
-	course_delivery	integer NOT NULL,
+	cs_delivery	integer NOT NULL,
 	name		varchar(255) NOT NULL,
 	url		varchar(4096) NOT NULL,
 
-	FOREIGN KEY (course_delivery) REFERENCES course_deliveries,
+	FOREIGN KEY (cs_delivery) REFERENCES cs_deliveries,
 
-	UNIQUE(course_delivery, url)
+	UNIQUE(cs_delivery, url)
 );
 
-CREATE TABLE course_delivery_attempts (
+CREATE TABLE csd_attempts (
 	id		serial PRIMARY KEY,
-	course_delivery	integer NOT NULL,
+	cs_delivery	integer NOT NULL,
 	attempt_number	integer NOT NULL,
 	due_date	timestamp with time zone NOT NULL,
 
-	FOREIGN KEY (course_delivery) REFERENCES course_deliveries,
+	FOREIGN KEY (cs_delivery) REFERENCES cs_deliveries,
 
-	UNIQUE(course_delivery, attempt_number)
+	UNIQUE(cs_delivery, attempt_number)
 );
 
 CREATE TABLE people (
@@ -151,40 +162,41 @@ CREATE TABLE person_mail_addresses (
 	UNIQUE(mail_address)
 );
 
-CREATE TABLE course_enrolled_students (
+CREATE TABLE cs_enrolled_students (
 	id		serial PRIMARY KEY,
-	course		integer NOT NULL,
+	course_semester	integer NOT NULL,
 	person		integer NOT NULL,
 
-	FOREIGN KEY (course) REFERENCES courses,
+	FOREIGN KEY (course_semester) REFERENCES course_semesters,
 	FOREIGN KEY (person) REFERENCES people,
 
-	UNIQUE(course, person)
+	UNIQUE(course_semester, person)
 );
 
-CREATE TABLE course_delivery_correctors (
+-- People who grade deliveries for a given course during a semester.
+CREATE TABLE csd_graders (
 	id		serial PRIMARY KEY,
-	course		integer NOT NULL,
+	course_semester	integer NOT NULL,
 	person		integer NOT NULL,
 
-	FOREIGN KEY (course) REFERENCES courses,
+	FOREIGN KEY (course_semester) REFERENCES course_semesters,
 	FOREIGN KEY (person) REFERENCES people,
 
-	UNIQUE(course, person)
+	UNIQUE(course_semester, person)
 );
 
 CREATE TABLE student_deliveries (
 	id			serial PRIMARY KEY,
-	course_enrolled_student	integer NOT NULL,
-	course_delivery_attempt	integer NOT NULL,
+	cs_enrolled_student	integer NOT NULL,
+	csd_attempt		integer NOT NULL,
 	delivered		timestamp with time zone NOT NULL,
 	approved		timestamp with time zone,
 	declined		timestamp with time zone,
-	corrected_by		integer,
+	graded_by		integer,
 
-	FOREIGN KEY (course_enrolled_student) REFERENCES course_enrolled_students,
-	FOREIGN KEY (course_delivery_attempt) REFERENCES course_delivery_attempts,
-	FOREIGN KEY (corrected_by) REFERENCES course_delivery_correctors,
+	FOREIGN KEY (cs_enrolled_student) REFERENCES cs_enrolled_students,
+	FOREIGN KEY (csd_attempt) REFERENCES csd_attempts,
+	FOREIGN KEY (graded_by) REFERENCES csd_graders,
 
-	UNIQUE(course_enrolled_student, course_delivery_attempt)
+	UNIQUE(cs_enrolled_student, csd_attempt)
 );
