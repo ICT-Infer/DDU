@@ -297,9 +297,9 @@ CREATE TABLE csd_graders (
 
 COMMENT ON TABLE csd_graders IS 'People who grade deliveries for a given course during a semester. This could for example be course lecturers or student assistants.';
 
-COMMENT ON COLUMN course_semester.course_semester IS 'The id of a course which a person is set to grade deliveries for.';
+COMMENT ON COLUMN csd_graders.course_semester IS 'The id of a course which a person is set to grade deliveries for.';
 
-COMMENT ON COLUMN course_semester.person IS 'The id of a person who is set to grade deliveries for a course semester.';
+COMMENT ON COLUMN csd_graders.person IS 'The id of a person who is set to grade deliveries for a course semester.';
 
 CREATE TABLE student_deliveries (
 	id			serial PRIMARY KEY,
@@ -307,7 +307,7 @@ CREATE TABLE student_deliveries (
 	csd_attempt		integer NOT NULL,
 	delivered		timestamp with time zone NOT NULL,
 	approved		timestamp with time zone,
-	declined		timestamp with time zone,
+	rejected		timestamp with time zone,
 	graded_by		integer,
 
 	FOREIGN KEY (cs_enrolled_student) REFERENCES cs_enrolled_students,
@@ -317,16 +317,16 @@ CREATE TABLE student_deliveries (
 	UNIQUE(cs_enrolled_student, csd_attempt)
 );
 
-COMMENT ON TABLE course_semesters IS 'Deliveries made by students. This is, like, the raison d''être for DDU... or, at least it was when I started writing it. Now it has grown quite a bit in potential beyond what I originally imagined.';
+COMMENT ON TABLE student_deliveries IS 'Deliveries made by students. This is, like, the raison d''être for DDU... or, at least it was when I started writing it. Now it has grown quite a bit in potential beyond what I originally imagined.';
 
-COMMENT ON COLUMN course_semesters.cs_enrolled_student IS 'The id of a student enrolled in a course.';
+COMMENT ON COLUMN student_deliveries.cs_enrolled_student IS 'The id of a student enrolled in a course.';
 
-COMMENT ON COLUMN course_semesters.csd_attempt IS 'The course semester delivery attempt batch which which this delivery is associated.';
+COMMENT ON COLUMN student_deliveries.csd_attempt IS 'The course semester delivery attempt batch which which this delivery is associated.';
 
-COMMENT ON COLUMN course_semesters.delivered IS 'The datetime at which the delivery was made or last modified.';
+COMMENT ON COLUMN student_deliveries.delivered IS 'The datetime at which the delivery was made or last modified.';
 
-COMMENT ON COLUMN course_semesters.approved IS 'The datetime at which the delivery was approved, in case it was approved. If the delivery was not approved, this must be set to NULL.';
+COMMENT ON COLUMN student_deliveries.approved IS 'The datetime at which the delivery was approved, in case it was approved. If the delivery was not approved, this must be set to NULL.';
 
-COMMENT ON COLUMN course_semesters.rejected IS 'The datetime at which the delivery was rejected, in case it was rejected. If the delivery was not rejected, this must be set to NULL.';
+COMMENT ON COLUMN student_deliveries.rejected IS 'The datetime at which the delivery was rejected, in case it was rejected. If the delivery was not rejected, this must be set to NULL.';
 
-COMMENT ON COLUMN course_semesters.graded_by IS 'The id of the course semester grader that graded the delivery.';
+COMMENT ON COLUMN student_deliveries.graded_by IS 'The id of the course semester grader that graded the delivery.';
