@@ -139,7 +139,7 @@ CREATE TABLE course_enrolled_students (
 	UNIQUE(course, person)
 );
 
-CREATE TABLE course_correctors (
+CREATE TABLE course_delivery_correctors (
 	id		serial PRIMARY KEY,
 	course		integer NOT NULL,
 	person		integer NOT NULL,
@@ -161,7 +161,7 @@ CREATE TABLE student_deliveries (
 
 	FOREIGN KEY (course_enrolled_student) REFERENCES course_enrolled_students,
 	FOREIGN KEY (course_delivery_attempt) REFERENCES course_delivery_attempts,
-	FOREIGN KEY (corrected_by) REFERENCES course_correctors,
+	FOREIGN KEY (corrected_by) REFERENCES course_delivery_correctors,
 
 	UNIQUE(course_enrolled_student, course_delivery_attempt)
 );
