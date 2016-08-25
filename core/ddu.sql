@@ -39,7 +39,7 @@ CREATE TABLE courses (
 	id		serial PRIMARY KEY,
 	institution	integer NOT NULL,
 	name		varchar(255) NOT NULL,
-	autumn		boolean, -- true: autumn, false: spring.
+	autumn		boolean NOT NULL, -- true: autumn, false: spring.
 	year		integer NOT NULL,
 
 	FOREIGN KEY (institution) REFERENCES institutions,
