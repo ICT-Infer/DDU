@@ -1,4 +1,4 @@
-# Good good study; day day up
+# Good Good Study; Day Day Up
 
 Study hard and make progress every day!
 
