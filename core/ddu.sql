@@ -139,6 +139,17 @@ CREATE TABLE course_enrolled_students (
 	UNIQUE(course, person)
 );
 
+CREATE TABLE course_correctors (
+	id		serial PRIMARY KEY,
+	course		integer NOT NULL,
+	person		integer NOT NULL,
+
+	FOREIGN KEY (course) REFERENCES courses,
+	FOREIGN KEY (person) REFERENCES people,
+
+	UNIQUE(course, person)
+);
+
 CREATE TABLE student_deliveries (
 	id			serial PRIMARY KEY,
 	course_enrolled_student	integer NOT NULL,
@@ -146,9 +157,11 @@ CREATE TABLE student_deliveries (
 	delivered		timestamp with time zone NOT NULL,
 	approved		timestamp with time zone,
 	declined		timestamp with time zone,
+	corrected_by		integer,
 
 	FOREIGN KEY (course_enrolled_student) REFERENCES course_enrolled_students,
 	FOREIGN KEY (course_delivery_attempt) REFERENCES course_delivery_attempts,
+	FOREIGN KEY (corrected_by) REFERENCES course_correctors,
 
 	UNIQUE(course_enrolled_student, course_delivery_attempt)
 );
