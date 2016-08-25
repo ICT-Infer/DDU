@@ -85,15 +85,15 @@ CREATE TABLE topic_resources (
 CREATE TABLE delivery_types (
 	id	serial PRIMARY KEY,
 	name	varchar(255) NOT NULL,
-	fmtstr	varchar(255) NOT NULL
+	fmtstr	varchar(255) NOT NULL,
 
 	UNIQUE(name)
 );
 
 INSERT INTO delivery_types (name, fmtstr) VALUES
 	('Obligatory assignment', 'Oblig %d'),
-	('Prelab', 'Prelab, lab %d')
-	('Journal', 'Journal, lab %d')
+	('Prelab', 'Prelab, lab %d'),
+	('Journal', 'Journal, lab %d'),
 	('Report', 'Report, lab %d');
 
 CREATE TABLE course_deliveries (
