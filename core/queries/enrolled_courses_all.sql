@@ -1,7 +1,11 @@
 select
 	courses.code as course_code,
 	courses.name as course_name,
-	institutions.name as institution_name
+	institutions.name as institution_name,
+	CASE
+		WHEN courses.autumn THEN 'Autumn'
+		ELSE 'Spring'
+	END || ', ' || courses.year as semester
 from course_enrolled_students
 inner join courses
 	on course_enrolled_students.course = courses.id
