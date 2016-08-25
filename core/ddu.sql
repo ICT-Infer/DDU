@@ -19,7 +19,9 @@ CREATE TABLE locations (
 	parent_location	integer,
 	name		varchar(255) NOT NULL,
 
-	UNIQUE(parent_location, name)
+	UNIQUE(parent_location, name),
+
+	FOREIGN KEY (parent_location) REFERENCES locations
 );
 
 CREATE TABLE institutions (
@@ -28,7 +30,9 @@ CREATE TABLE institutions (
 	location	integer NOT NULL,
 	description	varchar(255),
 
-	UNIQUE(name, location)
+	UNIQUE(name, location),
+
+	FOREIGN KEY (location) REFERENCES locations
 );
 
 CREATE TABLE courses (
