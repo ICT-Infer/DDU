@@ -113,7 +113,7 @@ CREATE TABLE course_delivery_attempts (
 CREATE TABLE people (
 	id		serial PRIMARY KEY,
 	name		varchar(255) NOT NULL,
-	ssn		integer NOT NULL,
+	ssn		varchar(255) NOT NULL,
 
 	UNIQUE(ssn)
 );
