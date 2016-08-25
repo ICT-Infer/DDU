@@ -141,14 +141,14 @@ CREATE TABLE course_enrolled_students (
 
 CREATE TABLE student_deliveries (
 	id			serial PRIMARY KEY,
-	person			integer NOT NULL,
+	course_enrolled_student	integer NOT NULL,
 	course_delivery_attempt	integer NOT NULL,
 	delivered		timestamp with time zone NOT NULL,
 	approved		timestamp with time zone,
 	declined		timestamp with time zone,
 
-	FOREIGN KEY (person) REFERENCES people,
+	FOREIGN KEY (course_enrolled_student) REFERENCES course_enrolled_students,
 	FOREIGN KEY (course_delivery_attempt) REFERENCES course_delivery_attempts,
 
-	UNIQUE(person, course_delivery_attempt)
+	UNIQUE(course_enrolled_student, course_delivery_attempt)
 );
