@@ -2,8 +2,10 @@
 
 Study hard and make progress every day!
 
-## Installation
+## Dependencies
 
-```bash
-createdb ddu && psql ddu < core/ddu.sql
-```
+* CouchDB 2.0
+
+## TODO
+
+* DRY up views.
