@@ -1,0 +1,17 @@
+{
+  "_id": "3ebec0fd2bffb45862f84283af000f7c",
+  "_rev": "3-1b9edf5dce07f8f7b13c401c60e45902",
+  "institution": "NTNU-G",
+  "semester": "2016/autumn",
+  "course": "REA2101",
+  "assignment_num": 4,
+  "title": "Potential Energy and Energy Conservation",
+  "attempts": 1,
+  "due": [
+    2016,
+    9,
+    25,
+    21,
+    59
+  ]
+}

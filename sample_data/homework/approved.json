@@ -1,0 +1,38 @@
+{
+  "_id": "3ebec0fd2bffb45862f84283af0090f0",
+  "_rev": "2-36b272978ee8b18f168a9292b9039528",
+  "institution": "NTNU-G",
+  "semester": "2016/autumn",
+  "course": "REA2101",
+  "assignment_num": 3,
+  "title": "Work and Kinetic Energy",
+  "files": [
+    "https://fronter.com/hig/questiontest/index.phtml?action=show_test&surveyid=735466&force=0"
+  ],
+  "attempts": 2,
+  "due": [
+    2016,
+    9,
+    18,
+    21,
+    59
+  ],
+  "delivered": [
+    2016,
+    9,
+    18,
+    20,
+    30
+  ],
+  "approved": [
+    2016,
+    9,
+    18,
+    20,
+    30
+  ],
+  "score": [
+    11,
+    11
+  ]
+}
