@@ -43,23 +43,46 @@ function (doc)
 		return twd(arr[3]) + ":" + twd(arr[4]);
 	}
 
-	if (doc.delivered && !doc.approved)
-	{
-		course_id = [doc.institution, doc.semester, doc.course];
-		key = [1, doc.due, course_id];
-		value = {};
+	course_id = [doc.institution, doc.semester, doc.course];
+	value = {};
 
-		value._rev = doc._rev;
-		// TODO: Add script revision as a value attribute.
-		value.course_url = course_url(course_id);
-		value.course = doc.course;
-		value.title = "Oblig " + twd(doc.assignment_num)
-			+ ": " + doc.title;
+	value._rev = doc._rev;
+	// TODO: Add script revision as a value attribute.
+	value.course_url = course_url(course_id);
+	value.course = doc.course;
+	value.title = "Oblig " + twd(doc.assignment_num)
+		+ ": " + doc.title;
+
+	if (!doc.delivered)
+	{
+		key = [0, doc.due, course_id];
+
+		value.due_ts = darr2zts(doc.due);
+		value.due_date = darr2zd(doc.due);
+		value.due_zclock = darr2zc(doc.due);
+	}
+	else if (doc.delivered && !doc.approved)
+	{
+		key = [1, doc.due, course_id];
 
 		value.delivered_ts = darr2zts(doc.due);
 		value.delivered_date = darr2zd(doc.due);
 		value.delivered_zclock = darr2zc(doc.due);
-
-		emit(key, value);
 	}
+	else if (doc.approved)
+	{
+		key = [2, doc.due, course_id];
+
+		value.score = (100 * (doc.score[0] / doc.score[1])).toFixed(2)
+			+ "%";
+	}
+	else
+	{
+		// This should not happen
+
+		key = null;
+		value = null;
+	}
+
+	emit(key, value);
 }

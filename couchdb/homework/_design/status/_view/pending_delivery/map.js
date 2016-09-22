@@ -46,7 +46,7 @@ function (doc)
 	if (!doc.delivered)
 	{
 		course_id = [doc.institution, doc.semester, doc.course];
-		key = [doc.due, 0, course_id];
+		key = [0, doc.due, course_id];
 		value = {};
 
 		value._rev = doc._rev;
