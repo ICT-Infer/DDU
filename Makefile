@@ -1,6 +1,6 @@
 all: build/_design/status.json
 
-build/_design/status.json: couchdb/homework/_design/status/_list/complex.js couchdb/homework/_design/status/_list/tbodies.js couchdb/homework/_design/status/_view/pending_delivery/map.js couchdb/homework/_design/status/_view/pending_review/map.js couchdb/homework/_design/status/_view/approved/map.js couchdb/homework/_design/status/_view/all/map.js
+build/_design/status.json: couchdb/homework/_design/status/_list/complex.js couchdb/homework/_design/status/_view/pending_delivery/map.js couchdb/homework/_design/status/_view/pending_review/map.js couchdb/homework/_design/status/_view/approved/map.js couchdb/homework/_design/status/_view/all/map.js
 	mkdir -p build/_design/
 	( \
 	  echo \
@@ -21,7 +21,6 @@ build/_design/status.json: couchdb/homework/_design/status/_list/complex.js couc
 	    '    }' \
 	    '  },' \
 	    '  "lists": {' \
-	    '    "tbodies":' "$$( ./scripts/esc.sh couchdb/homework/_design/status/_list/tbodies.js )," \
 	    '    "complex":' "$$( ./scripts/esc.sh couchdb/homework/_design/status/_list/complex.js )" \
 	    '  },' \
 	    '  "language": "javascript"' \
