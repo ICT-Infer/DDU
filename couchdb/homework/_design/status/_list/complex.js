@@ -82,7 +82,7 @@ function(head, req)
 			return row;
 		}
 
-		ths_common = "<th>Course</th><th>Title</th>";
+		ths_common = "<th>Course</th><th>Assignment</th>";
 		ths_pd = ths_common + "<th colspan=2>Due</th>";
 		ths_pr = ths_common + "<th colspan=2>Delivered</th>";
 		ths_app = ths_common + "<th>Score</th>";
