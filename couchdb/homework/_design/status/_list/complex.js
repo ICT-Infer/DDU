@@ -20,7 +20,7 @@ function(head, req)
 	{
 		html = "";
 
-		function trv_pending_delivery (vd)
+		function trv_pd (vd)
 		{
 			html += "<td>" + vd.due_date + "</td>";
 
@@ -29,7 +29,7 @@ function(head, req)
 				+ vd.due_zclock + "</a></td>";
 		}
 
-		function trv_pending_review (vd)
+		function trv_pr (vd)
 		{
 			html += "<td>" + vd.delivered_date + "</td>";
 
@@ -38,7 +38,7 @@ function(head, req)
 				+ vd.delivered_zclock + "</a></td>";
 		}
 
-		function trv_approved (vd)
+		function trv_app (vd)
 		{
 			html += "<td>" + vd.score + "</td>";
 		}
@@ -59,14 +59,16 @@ function(head, req)
 			html += "</tr>";
 		}
 
-		function table (first_row, n, title, trv)
+		function table (first_row, n, title, ths, trv)
 		{
 			row = first_row;
 
 			if (row && ('key' in row) && row.key[0] === n)
 			{
 				html += "<h2>" + title + "</h2>";
-				html += "<table><tbody>";
+				html += "<table>";
+				html += "<thead><tr>" + ths + "</tr></thead>";
+				html += "<tbody>";
 
 				do
 				{
@@ -80,10 +82,15 @@ function(head, req)
 			return row;
 		}
 
+		ths_common = "<th>Course</th><th>Title</th>";
+		ths_pd = ths_common + "<th colspan=2>Due</th>";
+		ths_pr = ths_common + "<th colspan=2>Delivered</th>";
+		ths_app = ths_common + "<th>Score</th>";
+
 		row = getRow();
-		row = table(row, 0, "Pending delivery", trv_pending_delivery);
-		row = table(row, 1, "Pending review", trv_pending_review);
-		row = table(row, 2, "Approved", trv_approved);
+		row = table(row, 0, "Pending delivery", ths_pd, trv_pd);
+		row = table(row, 1, "Pending review", ths_pr, trv_pr);
+		row = table(row, 2, "Approved", ths_app, trv_app);
 
 		return html;
 	});
