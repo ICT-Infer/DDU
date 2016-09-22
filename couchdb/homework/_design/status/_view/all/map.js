@@ -80,7 +80,7 @@ function (doc)
 	{
 		// This should not happen
 
-		key = null;
+		key = [3, null, null];
 		value = null;
 	}
 
