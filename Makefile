@@ -1,6 +1,6 @@
 all: build/_design/status.json
 
-build/_design/status.json: couchdb/homework/_design/status/_list/tbodies.js couchdb/homework/_design/status/_view/pending_delivery.js couchdb/homework/_design/status/_view/pending_review.js couchdb/homework/_design/status/_view/approved.js
+build/_design/status.json: couchdb/homework/_design/status/_list/tbodies.js couchdb/homework/_design/status/_view/pending_delivery/map.js couchdb/homework/_design/status/_view/pending_review/map.js couchdb/homework/_design/status/_view/approved/map.js
 	mkdir -p build/_design/
 	( \
 	  echo \
@@ -8,13 +8,13 @@ build/_design/status.json: couchdb/homework/_design/status/_list/tbodies.js couc
 	    '  "_id": "_design/status",' \
 	    '  "views": {' \
 	    '    "approved": {' \
-	    '      "map":' "$$( ./scripts/esc.sh couchdb/homework/_design/status/_view/approved.js )" \
+	    '      "map":' "$$( ./scripts/esc.sh couchdb/homework/_design/status/_view/approved/map.js )" \
 	    '    },' \
 	    '    "pending_delivery": {' \
-	    '      "map":' "$$( ./scripts/esc.sh couchdb/homework/_design/status/_view/pending_delivery.js )" \
+	    '      "map":' "$$( ./scripts/esc.sh couchdb/homework/_design/status/_view/pending_delivery/map.js )" \
 	    '    },' \
 	    '    "pending_review": {' \
-	    '      "map":' "$$( ./scripts/esc.sh couchdb/homework/_design/status/_view/pending_review.js )" \
+	    '      "map":' "$$( ./scripts/esc.sh couchdb/homework/_design/status/_view/pending_review/map.js )" \
 	    '    }' \
 	    '  },' \
 	    '  "lists": {' \
