@@ -18,24 +18,24 @@ function(head, req)
 {
 	provides("html", function ()
 	{
-		html = "";
+		html = "<!DOCTYPE html><html lang=en><head><title>DDU</title></head>";
 
 		function trv_pd (vd)
 		{
 			html += "<td>" + vd.due_date + "</td>";
 
-			html += "<td><date datetime=\""
+			html += "<td><time datetime=\""
 				+ vd.due_ts + "\">"
-				+ vd.due_zclock + "</a></td>";
+				+ vd.due_zclock + "</time></td>";
 		}
 
 		function trv_pr (vd)
 		{
 			html += "<td>" + vd.delivered_date + "</td>";
 
-			html += "<td><date datetime=\""
+			html += "<td><time datetime=\""
 				+ vd.delivered_ts + "\">"
-				+ vd.delivered_zclock + "</a></td>";
+				+ vd.delivered_zclock + "</time></td>";
 		}
 
 		function trv_app (vd)
