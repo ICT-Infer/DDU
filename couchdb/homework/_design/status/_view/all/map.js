@@ -65,9 +65,9 @@ function (doc)
 	{
 		key = [1, doc.due, course_id];
 
-		value.delivered_ts = darr2zts(doc.due);
-		value.delivered_date = darr2zd(doc.due);
-		value.delivered_zclock = darr2zc(doc.due);
+		value.delivered_ts = darr2zts(doc.delivered);
+		value.delivered_date = darr2zd(doc.delivered);
+		value.delivered_zclock = darr2zc(doc.delivered);
 	}
 	else if (doc.approved)
 	{
