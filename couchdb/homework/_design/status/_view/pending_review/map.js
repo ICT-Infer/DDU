@@ -56,9 +56,9 @@ function (doc)
 		value.title = "Oblig " + twd(doc.assignment_num)
 			+ ": " + doc.title;
 
-		value.delivered_ts = darr2zts(doc.due);
-		value.delivered_date = darr2zd(doc.due);
-		value.delivered_zclock = darr2zc(doc.due);
+		value.delivered_ts = darr2zts(doc.delivered);
+		value.delivered_date = darr2zd(doc.delivered);
+		value.delivered_zclock = darr2zc(doc.delivered);
 
 		emit(key, value);
 	}
