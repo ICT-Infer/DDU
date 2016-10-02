@@ -43,10 +43,10 @@ function (doc)
 		return twd(arr[3]) + ":" + twd(arr[4]);
 	}
 
-	if (!doc.delivered && !doc.overdue)
+	if (doc.overdue)
 	{
 		course_id = [doc.institution, doc.semester, doc.course];
-		key = [0, doc.due, course_id];
+		key = [5, doc.due, course_id];
 		value = {};
 
 		value._rev = doc._rev;

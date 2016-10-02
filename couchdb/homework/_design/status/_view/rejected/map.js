@@ -27,26 +27,10 @@ function (doc)
 			+ "/" + cid[2] + ".htm";
 	}
 
-	function darr2zts (arr) // UTC date array to time stamp string
-	{
-		return arr[0] + "-" + twd(arr[1]) + "-" + twd(arr[2])
-			+ "T" + twd(arr[3]) + ":" + twd(arr[4]) + "Z";
-	}
-
-	function darr2zd (arr) // UTC date array to date string
-	{
-		return twd(arr[1]) + "/" + twd(arr[2]);
-	}
-
-	function darr2zc (arr) // UTC date array to clock string
-	{
-		return twd(arr[3]) + ":" + twd(arr[4]);
-	}
-
-	if (!doc.delivered && !doc.overdue)
+	if (doc.rejected)
 	{
 		course_id = [doc.institution, doc.semester, doc.course];
-		key = [0, doc.due, course_id];
+		key = [4, doc.due, course_id];
 		value = {};
 
 		value._rev = doc._rev;
@@ -56,9 +40,8 @@ function (doc)
 		value.title = "Oblig " + twd(doc.assignment_num)
 			+ ": " + doc.title;
 
-		value.due_ts = darr2zts(doc.due);
-		value.due_date = darr2zd(doc.due);
-		value.due_zclock = darr2zc(doc.due);
+		value.score = (100 * (doc.score[0] / doc.score[1])).toFixed(2)
+			+ "%";
 
 		emit(key, value);
 	}

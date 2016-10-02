@@ -1,6 +1,6 @@
 all: build/_design/status.json
 
-build/_design/status.json: couchdb/homework/_design/status/_list/complex.js couchdb/homework/_design/status/_view/pending_delivery/map.js couchdb/homework/_design/status/_view/pending_review/map.js couchdb/homework/_design/status/_view/approved/map.js couchdb/homework/_design/status/_view/all/map.js
+build/_design/status.json: couchdb/homework/_design/status/_list/complex.js couchdb/homework/_design/status/_view/pending_delivery/map.js couchdb/homework/_design/status/_view/pending_review/map.js couchdb/homework/_design/status/_view/approved/map.js couchdb/homework/_design/status/_view/all/map.js couchdb/homework/_design/status/_view/overdue/map.js couchdb/homework/_design/status/_view/rejected/map.js
 	mkdir -p build/_design/
 	( \
 	  echo \
@@ -18,6 +18,12 @@ build/_design/status.json: couchdb/homework/_design/status/_list/complex.js couc
 	    '    },' \
 	    '    "pending_review": {' \
 	    '      "map":' "$$( ./scripts/esc.sh couchdb/homework/_design/status/_view/pending_review/map.js )" \
+	    '    },' \
+	    '    "overdue": {' \
+	    '      "map":' "$$( ./scripts/esc.sh couchdb/homework/_design/status/_view/overdue/map.js )" \
+	    '    },' \
+	    '    "rejected": {' \
+	    '      "map":' "$$( ./scripts/esc.sh couchdb/homework/_design/status/_view/rejected/map.js )" \
 	    '    }' \
 	    '  },' \
 	    '  "lists": {' \

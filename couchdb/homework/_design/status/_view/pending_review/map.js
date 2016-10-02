@@ -43,7 +43,7 @@ function (doc)
 		return twd(arr[3]) + ":" + twd(arr[4]);
 	}
 
-	if (doc.delivered && !doc.approved)
+	if (doc.delivered && !doc.approved && !doc.rejected)
 	{
 		course_id = [doc.institution, doc.semester, doc.course];
 		key = [1, doc.due, course_id];

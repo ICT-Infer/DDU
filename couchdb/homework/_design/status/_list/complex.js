@@ -20,7 +20,7 @@ function(head, req)
 	{
 		html = "<!DOCTYPE html><html lang=en><head><title>DDU</title></head>";
 
-		function trv_pd (vd)
+		function trv_cadu (vd)
 		{
 			html += "<td>" + vd.due_date + "</td>";
 
@@ -29,7 +29,7 @@ function(head, req)
 				+ vd.due_zclock + "</time></td>";
 		}
 
-		function trv_pr (vd)
+		function trv_cade (vd)
 		{
 			html += "<td>" + vd.delivered_date + "</td>";
 
@@ -38,7 +38,7 @@ function(head, req)
 				+ vd.delivered_zclock + "</time></td>";
 		}
 
-		function trv_app (vd)
+		function trv_cas (vd)
 		{
 			html += "<td>" + vd.score + "</td>";
 		}
@@ -83,14 +83,16 @@ function(head, req)
 		}
 
 		ths_common = "<th>Course</th><th>Assignment</th>";
-		ths_pd = ths_common + "<th colspan=2>Due</th>";
-		ths_pr = ths_common + "<th colspan=2>Delivered</th>";
-		ths_app = ths_common + "<th>Score</th>";
+		ths_cadu = ths_common + "<th colspan=2>Due</th>";
+		ths_cade = ths_common + "<th colspan=2>Delivered</th>";
+		ths_cas = ths_common + "<th>Score</th>";
 
 		row = getRow();
-		row = table(row, 0, "Pending delivery", ths_pd, trv_pd);
-		row = table(row, 1, "Pending review", ths_pr, trv_pr);
-		row = table(row, 2, "Approved", ths_app, trv_app);
+		row = table(row, 0, "Pending delivery", ths_cadu, trv_cadu);
+		row = table(row, 1, "Pending review", ths_cade, trv_cade);
+		row = table(row, 4, "Rejected", ths_cas, trv_cas);
+		row = table(row, 2, "Approved", ths_cas, trv_cas);
+		row = table(row, 5, "Overdue", ths_cadu, trv_cadu);
 
 		return html;
 	});

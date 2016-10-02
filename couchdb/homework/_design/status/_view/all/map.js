@@ -53,7 +53,15 @@ function (doc)
 	value.title = "Oblig " + twd(doc.assignment_num)
 		+ ": " + doc.title;
 
-	if (!doc.delivered)
+	if (doc.overdue)
+	{
+		key = [5, doc.due, course_id];
+
+		value.due_ts = darr2zts(doc.due);
+		value.due_date = darr2zd(doc.due);
+		value.due_zclock = darr2zc(doc.due);
+	}
+	else if (!doc.delivered)
 	{
 		key = [0, doc.due, course_id];
 
@@ -61,7 +69,7 @@ function (doc)
 		value.due_date = darr2zd(doc.due);
 		value.due_zclock = darr2zc(doc.due);
 	}
-	else if (doc.delivered && !doc.approved)
+	else if (doc.delivered && !doc.approved && !doc.rejected)
 	{
 		key = [1, doc.due, course_id];
 
@@ -72,6 +80,13 @@ function (doc)
 	else if (doc.approved)
 	{
 		key = [2, doc.due, course_id];
+
+		value.score = (100 * (doc.score[0] / doc.score[1])).toFixed(2)
+			+ "%";
+	}
+	else if (doc.rejected)
+	{
+		key = [4, doc.due, course_id];
 
 		value.score = (100 * (doc.score[0] / doc.score[1])).toFixed(2)
 			+ "%";
