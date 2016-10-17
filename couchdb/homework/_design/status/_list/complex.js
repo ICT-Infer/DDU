@@ -90,8 +90,8 @@ function(head, req)
 		row = getRow();
 		row = table(row, 0, "Pending delivery", ths_cadu, trv_cadu);
 		row = table(row, 1, "Pending review", ths_cade, trv_cade);
-		row = table(row, 4, "Rejected", ths_cas, trv_cas);
 		row = table(row, 2, "Approved", ths_cas, trv_cas);
+		row = table(row, 4, "Rejected", ths_cas, trv_cas);
 		row = table(row, 5, "Overdue", ths_cadu, trv_cadu);
 
 		return html;
