@@ -19,9 +19,43 @@ function(head, req)
 	provides("html", function ()
 	{
 		html = "<!DOCTYPE html><html lang=en><head><title>DDU</title></head>";
-		html += "<style>#type-4 meter::-webkit-meter-suboptimum-value"
-			+ "{ background: linear-gradient(to bottom, #f77, #d44"
-			+ " 45%, #d44 55%, #f77); }</style>";
+		html += "<style>"
+			+ "meter"
+			+ "{"
+			+	"-webkit-appearance: none;"
+			+	"-moz-appearance: none;"
+			+	"appearance: none;"
+			+	"background: lightgrey;"
+			+ "}"
+			+ "meter:-moz-meter-optimum::-moz-meter-bar"
+			+ "{"
+			+	"background: green;"
+			+ "}"
+			+ "meter:-moz-meter-sub-optimum::-moz-meter-bar"
+			+ "{"
+			+	"background: yellow;"
+			+ "}"
+			+ "meter::-webkit-meter-bar"
+			+ "{"
+			+	"background: lightgrey;"
+			+ "}"
+			+ "#type-4 meter:-moz-meter-sub-optimum::-moz-meter-bar"
+			+ "{"
+			+	"background: red;"
+			+ "}"
+			+ "meter::-webkit-meter-optimum-value"
+			+ "{"
+			+	"background: green;"
+			+ "}"
+			+ "meter::-webkit-meter-suboptimum-value"
+			+ "{"
+			+	"background: yellow;"
+			+ "}"
+			+ "#type-4 meter::-webkit-meter-suboptimum-value"
+			+ "{"
+			+	"background: red;"
+			+ "}"
+			+"</style>";
 
 		function trv_cadu (vd)
 		{
