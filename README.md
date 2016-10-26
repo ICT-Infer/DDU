@@ -6,7 +6,3 @@ Study hard and make progress every day!
 
 * CouchDB 2.0
 * jq
-
-## TODO
-
-* DRY up views.
