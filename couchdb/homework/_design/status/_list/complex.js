@@ -19,6 +19,9 @@ function(head, req)
 	provides("html", function ()
 	{
 		html = "<!DOCTYPE html><html lang=en><head><title>DDU</title></head>";
+		html += "<style>#type-4 meter::-webkit-meter-suboptimum-value"
+			+ "{ background: linear-gradient(to bottom, #f77, #d44"
+			+ " 45%, #d44 55%, #f77); }</style>";
 
 		function trv_cadu (vd)
 		{
