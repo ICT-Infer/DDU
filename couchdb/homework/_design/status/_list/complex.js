@@ -22,35 +22,40 @@ function(head, req)
 
 		function trv_cadu (vd)
 		{
+/*
 			html += "<td>" + vd.due_date + "</td>";
 
 			html += "<td><time datetime=\""
 				+ vd.due_ts + "\">"
 				+ vd.due_zclock + "</time></td>";
+*/
 		}
 
 		function trv_cade (vd)
 		{
+/*
 			html += "<td>" + vd.delivered_date + "</td>";
 
 			html += "<td><time datetime=\""
 				+ vd.delivered_ts + "\">"
 				+ vd.delivered_zclock + "</time></td>";
+*/
 		}
 
 		function trv_cas (vd)
 		{
+/*
 			html += "<td>" + vd.score + "</td>";
+*/
 		}
 
 		function tr (trv, row)
 		{
+			vd = row.value; // View-provided data.
+
 			html += "<tr>";
 
-			vd = row.value; // view-emitted data values
-
-			html += "<td><a href=\"" + vd.course_url + "\">"
-				+ vd.course + "</a></td>";
+			html += "<td>" + vd.course + "</td>";
 
 			html += "<td><a href=\"" + vd.doc_url + "\">"
 				+ vd.title + "</a></td>";

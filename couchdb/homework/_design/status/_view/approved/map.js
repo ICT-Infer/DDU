@@ -16,34 +16,10 @@
 
 function (doc)
 {
-	function twd (num) // two digits
-	{
-		return ("00" + num).substr(-2);
-	}
-
-	function course_url (cid) // Course ID array to URL string
-	{
-		return "/en_US/edu/" + cid[0] + "/" + cid[1]
-			+ "/" + cid[2] + ".htm";
-	}
+	doc = require('views/lib/preprocess').assignment(doc);
 
 	if (doc.approved)
 	{
-		course_id = [doc.institution, doc.semester, doc.course];
-		key = [2, doc.due, course_id];
-		value = {};
-
-		value._rev = doc._rev;
-		// TODO: Add script revision as a value attribute.
-		value.course_url = course_url(course_id);
-		value.course = doc.course;
-	        value.doc_url = "/_utils/#/database/homework/" + doc._id;
-		value.title = "Oblig " + twd(doc.assignment_num)
-			+ ": " + doc.title;
-
-		value.score = (100 * (doc.score[0] / doc.score[1])).toFixed(2)
-			+ "%";
-
-		emit(key, value);
+		emit(doc.course_id, doc);
 	}
 }
