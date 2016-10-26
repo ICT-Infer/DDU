@@ -53,6 +53,7 @@ function (doc)
 		// TODO: Add script revision as a value attribute.
 		value.course_url = course_url(course_id);
 		value.course = doc.course;
+	        value.doc_url = "/_utils/#/database/homework/" + doc._id;
 		value.title = "Oblig " + twd(doc.assignment_num)
 			+ ": " + doc.title;
 

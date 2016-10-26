@@ -52,7 +52,8 @@ function(head, req)
 			html += "<td><a href=\"" + vd.course_url + "\">"
 				+ vd.course + "</a></td>";
 
-			html += "<td>" + vd.title + "</td>";
+			html += "<td><a href=\"" + vd.doc_url + "\">"
+				+ vd.title + "</a></td>";
 
 			trv(vd);
 
