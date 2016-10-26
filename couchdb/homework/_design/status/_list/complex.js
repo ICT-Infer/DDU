@@ -45,7 +45,8 @@ function(head, req)
 		function trv_cas (vd)
 		{
 			html += "<td><meter min=0" + " max=" + vd.score_frac[1]
-				+ " optimum=" + vd.score_frac[1] + " value="
+				+ " optimum=" + vd.score_frac[1] + " low="
+				+ vd.score_frac[1] + " value="
 				+ vd.score_frac[0] + ">" + vd.score_pct
 				+ "</meter></td>";
 		}
