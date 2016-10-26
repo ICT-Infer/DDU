@@ -1,6 +1,6 @@
 all: build/_design/status.json
 
-build/_design/status.json: couchdb/homework/_design/status/_list/complex.js couchdb/homework/_design/status/_view/pending_delivery/map.js couchdb/homework/_design/status/_view/pending_review/map.js couchdb/homework/_design/status/_view/approved/map.js couchdb/homework/_design/status/_view/all/map.js couchdb/homework/_design/status/_view/overdue/map.js couchdb/homework/_design/status/_view/rejected/map.js
+build/_design/status.json: couchdb/homework/_design/status/_list/complex.js couchdb/homework/_design/status/_view/pending_delivery/map.js couchdb/homework/_design/status/_view/pending_review/map.js couchdb/homework/_design/status/_view/approved/map.js couchdb/homework/_design/status/_view/all/map.js couchdb/homework/_design/status/_view/overdue/map.js couchdb/homework/_design/status/_view/rejected/map.js scripts/esc.sh
 	mkdir -p build/_design/
 	( \
 	  echo \
