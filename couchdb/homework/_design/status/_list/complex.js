@@ -73,7 +73,7 @@ function(head, req)
 			if (row && ('key' in row) && row.key[0] === n)
 			{
 				html += "<h2>" + title + "</h2>";
-				html += "<table>";
+				html += "<table id=type-" + n + ">";
 				html += "<thead><tr>" + ths + "</tr></thead>";
 				html += "<tbody>";
 
