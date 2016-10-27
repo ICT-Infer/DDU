@@ -1,3 +1,4 @@
 #!/bin/sh
 
-( echo , ; tail -n+3 build/homework/_design/status.json ) | xclip -selection c
+( echo , ; jq -S '.' build/homework/_design/status.json | tail -n+3 ) \
+	| xclip -selection c
