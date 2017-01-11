@@ -59,24 +59,19 @@ function(head, req)
 
 		function trv_cadu (vd)
 		{
-/*
-			html += "<td>" + vd.due_date + "</td>";
+			var due = new Date(Date.UTC(vd.due[0], vd.due[1] - 1,
+				vd.due[2], vd.due[3], vd.due[4]));
 
-			html += "<td><time datetime=\""
-				+ vd.due_ts + "\">"
-				+ vd.due_zclock + "</time></td>";
-*/
+			html += "<td>" + due.toISOString() + "</td>";
 		}
 
 		function trv_cade (vd)
 		{
-/*
-			html += "<td>" + vd.delivered_date + "</td>";
+			var delivered = new Date(Date.UTC(vd.delivered[0],
+				vd.delivered[1] - 1, vd.delivered[2],
+				vd.delivered[3], vd.delivered[4]));
 
-			html += "<td><time datetime=\""
-				+ vd.delivered_ts + "\">"
-				+ vd.delivered_zclock + "</time></td>";
-*/
+			html += "<td>" + delivered.toISOString() + "</td>";
 		}
 
 		function trv_cas (vd)
@@ -135,8 +130,8 @@ function(head, req)
 		}
 
 		ths_common = "<th>Course</th><th>Assignment</th>";
-		ths_cadu = ths_common + "<th colspan=2>Due</th>";
-		ths_cade = ths_common + "<th colspan=2>Delivered</th>";
+		ths_cadu = ths_common + "<th>Due</th>";
+		ths_cade = ths_common + "<th>Delivered</th>";
 		ths_cas = ths_common + "<th>Score</th>";
 
 		row = getRow();
