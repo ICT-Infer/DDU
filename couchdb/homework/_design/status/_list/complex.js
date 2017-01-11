@@ -57,21 +57,24 @@ function(head, req)
 			+ "}"
 			+"</style>";
 
+		function htmltime (datearr)
+		{
+			var ts = new Date(Date.UTC(datearr[0],
+					datearr[1] - 1, datearr[2],
+					datearr[3], datearr[4]))
+				.toISOString();
+
+			return "<time datetime=" + ts + ">" + ts + "</time>";
+		}
+
 		function trv_cadu (vd)
 		{
-			var due = new Date(Date.UTC(vd.due[0], vd.due[1] - 1,
-				vd.due[2], vd.due[3], vd.due[4]));
-
-			html += "<td>" + due.toISOString() + "</td>";
+			html += "<td>" + htmltime(vd.due) + "</td>";
 		}
 
 		function trv_cade (vd)
 		{
-			var delivered = new Date(Date.UTC(vd.delivered[0],
-				vd.delivered[1] - 1, vd.delivered[2],
-				vd.delivered[3], vd.delivered[4]));
-
-			html += "<td>" + delivered.toISOString() + "</td>";
+			html += "<td>" + htmltime(vd.delivered) + "</td>";
 		}
 
 		function trv_cas (vd)
