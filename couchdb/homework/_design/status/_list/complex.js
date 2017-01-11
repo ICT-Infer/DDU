@@ -18,7 +18,7 @@ function(head, req)
 {
 	provides("html", function ()
 	{
-		html = "<!DOCTYPE html><html lang=en><head><title>DDU</title></head>";
+		html = "<!DOCTYPE html><html lang=en><head><title>DDU</title>";
 		html += "<style>"
 			+ "meter"
 			+ "{"
@@ -56,6 +56,7 @@ function(head, req)
 			+	"background: red;"
 			+ "}"
 			+"</style>";
+		html += "</head>";
 
 		function htmltime (datearr)
 		{
