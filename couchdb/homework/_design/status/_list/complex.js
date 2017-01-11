@@ -144,6 +144,30 @@ function(head, req)
 		row = table(row, 4, "Rejected", ths_cas, trv_cas);
 		row = table(row, 5, "Overdue", ths_cadu, trv_cadu);
 
+		html += "<script>"
+			+ "function twd (num)" // two digits
+			+ "{"
+			+	"return ('0' + num).substr(-2);"
+			+ "}"
+			+ "function localizedt (d)"
+			+ "{"
+			+	"l = new Date(d.getAttribute('datetime'));"
+			+	"d.textContent = "
+			+		"twd(l.getMonth() + 1) + '/'"
+			+		"+ twd(l.getDate()) + ' '"
+			+		"+ twd(l.getHours()) + ':'"
+			+		"+ twd(l.getMinutes())"
+			+		";"
+			+ "}"
+			+ "var ds = document.evaluate('//time',document,null,"
+				+ "XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,"
+				+ "null);"
+			+ "for (var i = 0 ; i < ds.snapshotLength ; i++)"
+			+ "{"
+			+	"localizedt(ds.snapshotItem(i));"
+			+ "}"
+			+ "</script>";
+
 		return html;
 	});
 }
