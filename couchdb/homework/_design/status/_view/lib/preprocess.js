@@ -85,6 +85,10 @@ var assignment = function (doc)
 	{
 		result.title = "Report " + twd(doc.assignment_num)
 	}
+	else if (doc.assignment_type === "lab")
+	{
+		result.title = "Lab assignments " + twd(doc.assignment_num)
+	}
 	// Assignment title, pt. 2
 	if (doc.title)
 	{
