@@ -189,7 +189,8 @@ function(head, req)
 			{
 				changeq.semester = vd.semester;
 
-				frag += "<td><a href='" + req.raw_path
+				frag += "<td><a href='"
+					+ req.raw_path.split('?')[0]
 					+ querystr(changeq) + "'>"
 						+ sname(vd.semester)
 					+ "</a></td>";
