@@ -13,3 +13,10 @@ Study hard and make progress every day!
 ./configure.py
 make
 ```
+
+### Create config file
+
+```bash
+cp config.json.sample config.json
+$EDITOR config.json
+```
