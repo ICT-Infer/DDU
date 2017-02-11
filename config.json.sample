@@ -1,0 +1,8 @@
+{
+	'username': "couchdb",
+	'password': "changeme",
+	'scheme': "https",
+	'host': "couchdb.nordstroem.no",
+	'port': 80,
+	'database': "homework"
+}
