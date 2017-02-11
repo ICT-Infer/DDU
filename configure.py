@@ -102,7 +102,7 @@ with open('Makefile', 'w') as makefile:
     makefile.write('\t./scripts/design_doc.py $(.ALLSRC) $^ $@\n\n')
 
     #
-    # The targets for installation update and dependencies
+    # The targets for installation upgrade and dependencies
     #
 
     makefile.write('config.json:\n')
@@ -117,16 +117,16 @@ with open('Makefile', 'w') as makefile:
         'See README.md for details.\\n" 1>&2\n')
     makefile.write('\t@false\n\n')
 
-    # Installation update target
+    # Installation upgrade target
 
-    makefile.write('update: config.json installed')
+    makefile.write('upgrade: config.json installed')
 
     for tgt in makefile_target_deps:
 
         makefile.write(' ' + tgt)
 
     makefile.write('\n')
-    makefile.write('\t./scripts/update.py')
+    makefile.write('\t./scripts/upgrade.py')
 
     for tgt in makefile_target_deps:
 

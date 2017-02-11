@@ -1,6 +1,6 @@
 /build/
 Makefile
 installed
-update
+upgrade
 config.json
 __pycache__/
