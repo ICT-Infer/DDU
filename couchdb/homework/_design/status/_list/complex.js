@@ -70,30 +70,44 @@ function(head, req)
 
 		function trv_cas (vd)
 		{
-			html += "<td>"
+			frag = "";
+
+			frag += "<td>"
 				+ (vd.has_solution_published ? "Yes" : "No")
 				+ "</td>";
+
+			return frag;
 		}
 
 		function trv_cadu (vd)
 		{
-			html += "<td>" + htmltime(vd.due) + "</td>";
+			frag = "";
+
+			frag += "<td>" + htmltime(vd.due) + "</td>";
+
+			return frag;
 		}
 
 		function trv_casde (vd)
 		{
-			trv_cas(vd);
+			frag = "";
 
-			html += "<td>" + htmltime(vd.delivered) + "</td>";
+			frag += trv_cas(vd);
+
+			frag += "<td>" + htmltime(vd.delivered) + "</td>";
+
+			return frag;
 		}
 
 		function trv_cass (vd)
 		{
-			trv_cas(vd);
+			frag = "";
+
+			frag += trv_cas(vd);
 
 			if (vd.score_frac)
 			{
-				html += "<td><meter min=0"
+				frag += "<td><meter min=0"
 					+ " max=" + vd.score_frac[1]
 					+ " optimum=" + vd.score_frac[1]
 					+ " low=" + vd.score_frac[1]
@@ -103,51 +117,76 @@ function(head, req)
 			}
 			else
 			{
-				html += "<td>N/A</td>";
+				frag += "<td>N/A</td>";
 			}
+
+			return frag;
 		}
 
 		function trv_casdu (vd)
 		{
-			trv_cas(vd);
-			trv_cadu(vd);
+			frag = "";
+			
+			frag += trv_cas(vd);
+			frag += trv_cadu(vd);
+
+			return frag;
 		}
 
 		function tr (trv, row)
 		{
+			frag = "";
 			vd = row.value; // View-provided data.
 
-			html += "<tr>";
+			frag += "<tr>";
 
-			html += "<td>" + vd.course + "</td>";
+			frag += "<td>" + vd.course + "</td>";
 
-			html += "<td><a href=\"" + vd.doc_url + "\">"
+			frag += "<td><a href=\"" + vd.doc_url + "\">"
 				+ vd.title + "</a></td>";
 
-			trv(vd);
+			frag += trv(vd);
 
-			html += "</tr>";
+			frag += "</tr>";
+
+			return frag;
 		}
 
 		function table (first_row, n, title, ths, trv)
 		{
+			frag = "";
 			row = first_row;
+			count_valid_semester = 0;
 
 			if (row && ('key' in row) && row.key[0] === n)
 			{
-				html += "<h2>" + title + "</h2>";
-				html += "<table id=type-" + n + ">";
-				html += "<thead><tr>" + ths + "</tr></thead>";
-				html += "<tbody>";
+				frag += "<h2>" + title + "</h2>";
+				frag += "<table id=type-" + n + ">";
+				frag += "<thead><tr>" + ths + "</tr></thead>";
+				frag += "<tbody>";
 
 				do
 				{
-					tr(trv, row);
+					if ((req.query.semester
+						&& req.query.semester
+							=== row.value.semester)
+						|| !req.query.semester)
+					{
+						frag += tr(trv, row);
+						count_valid_semester++;
+					}
+
 					row = getRow();
+
 				} while (row && ('key' in row)
 					&& row.key[0] === n)
 
-				html += "</tbody></table>";
+				frag += "</tbody></table>";
+
+				if (count_valid_semester)
+				{
+					html += frag;
+				}
 			}
 
 			return row;
