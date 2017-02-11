@@ -58,6 +58,8 @@ function(head, req)
 			+"</style>";
 		html += "</head>";
 
+		// html += "<p>" + JSON.stringify(req) + "</p>";
+
 		function htmltime (datearr)
 		{
 			var ts = new Date(Date.UTC(datearr[0],
@@ -66,6 +68,27 @@ function(head, req)
 				.toISOString();
 
 			return "<time datetime=" + ts + ">" + ts + "</time>";
+		}
+
+		function querystr (qobj)
+		{
+			qcount = 0;
+			qparams = ["semester", "course"];
+			qstr = "";
+
+			for (i = 0 ; i < qparams.length ; i++)
+			{
+				qparam = qparams[i];
+
+				if (qparam in qobj)
+				{
+					qstr += (!qcount ? "?" : "&amp;");
+					qstr += qparam + "=" + qobj[qparam];
+					qcount++;
+				}
+			}
+
+			return qstr;
 		}
 
 		function trv_casol (vd)
@@ -122,9 +145,23 @@ function(head, req)
 
 			frag += "<tr>";
 
+			changeq = {};
+			if (req.query.course)
+			{
+				changeq.course = req.query.course;
+			}
+			if (req.query.semester)
+			{
+				changeq.semester = req.query.semester;
+			}
+
 			if (!req.query.semester)
 			{
-				frag += "<td>" + vd.semester + "</td>";
+				changeq.semester = vd.semester;
+
+				frag += "<td><a href='" + req.raw_path
+					+ querystr(changeq) + "'>"
+						+ vd.semester + "</a></td>";
 			}
 
 			frag += "<td>" + vd.course + "</td>";
