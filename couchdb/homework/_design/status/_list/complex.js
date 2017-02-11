@@ -70,33 +70,20 @@ function(head, req)
 
 		function trv_casol (vd)
 		{
-			frag = "";
-
-			frag += "<td>"
+			return "<td>"
 				+ (vd.has_solution_published ? "Yes" : "No")
 				+ "</td>";
-
-			return frag;
 		}
 
 		function trv_cadu (vd)
 		{
-			frag = "";
-
-			frag += "<td>" + htmltime(vd.due) + "</td>";
-
-			return frag;
+			return "<td>" + htmltime(vd.due) + "</td>";
 		}
 
 		function trv_casde (vd)
 		{
-			frag = "";
-
-			frag += trv_casol(vd);
-
-			frag += "<td>" + htmltime(vd.delivered) + "</td>";
-
-			return frag;
+			return trv_casol(vd)
+				+ "<td>" + htmltime(vd.delivered) + "</td>";
 		}
 
 		function trv_cass (vd)
@@ -125,12 +112,7 @@ function(head, req)
 
 		function trv_casdu (vd)
 		{
-			frag = "";
-			
-			frag += trv_casol(vd);
-			frag += trv_cadu(vd);
-
-			return frag;
+			return trv_casol(vd) + trv_cadu(vd);
 		}
 
 		function tr (trv, row)
