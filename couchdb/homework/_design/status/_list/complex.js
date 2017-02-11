@@ -159,9 +159,13 @@ function(head, req)
 			{
 				changeq.semester = vd.semester;
 
+				sparts = vd.semester.split('/');
+				sname = sparts[1].charAt(0).toUpperCase()
+					+ sparts[1].slice(1) + " " + sparts[0];
+
 				frag += "<td><a href='" + req.raw_path
 					+ querystr(changeq) + "'>"
-						+ vd.semester + "</a></td>";
+						+ sname + "</a></td>";
 			}
 
 			frag += "<td>" + vd.course + "</td>";
