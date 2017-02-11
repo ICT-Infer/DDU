@@ -126,12 +126,17 @@ var assignment = function (doc)
 		}
 	}
 	// Status, pt. 2
-	if ((doc.approved || doc.rejected) && doc.assignment_type === "oblig")
+	if ((result.approved || result.rejected)
+		&& result.assignment_type === "oblig")
 	{
 		result.score_frac = doc.score;
 		result.score_ratio = doc.score;
 		result.score_pct = (100 * (doc.score[0]
 			/ doc.score[1])).toFixed(2) + "%";
+	}
+	if (!result.pending_delivery && doc.has_solution_published)
+	{
+		result.has_solution_published = true;
 	}
 
 	return result;

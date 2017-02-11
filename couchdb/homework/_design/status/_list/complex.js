@@ -68,18 +68,29 @@ function(head, req)
 			return "<time datetime=" + ts + ">" + ts + "</time>";
 		}
 
+		function trv_cas (vd)
+		{
+			html += "<td>"
+				+ (vd.has_solution_published ? "Yes" : "No")
+				+ "</td>";
+		}
+
 		function trv_cadu (vd)
 		{
 			html += "<td>" + htmltime(vd.due) + "</td>";
 		}
 
-		function trv_cade (vd)
+		function trv_casde (vd)
 		{
+			trv_cas(vd);
+
 			html += "<td>" + htmltime(vd.delivered) + "</td>";
 		}
 
-		function trv_cas (vd)
+		function trv_cass (vd)
 		{
+			trv_cas(vd);
+
 			if (vd.score_frac)
 			{
 				html += "<td><meter min=0" + " max=" + vd.score_frac[1]
@@ -92,6 +103,12 @@ function(head, req)
 			{
 				html += "<td>N/A</td>";
 			}
+		}
+
+		function trv_casdu (vd)
+		{
+			trv_cas(vd);
+			trv_cadu(vd);
 		}
 
 		function tr (trv, row)
@@ -134,16 +151,18 @@ function(head, req)
 		}
 
 		ths_common = "<th>Course</th><th>Assignment</th>";
+		ths_solution = "<th>Solution Published?</th>";
 		ths_cadu = ths_common + "<th>Due</th>";
-		ths_cade = ths_common + "<th>Delivered</th>";
-		ths_cas = ths_common + "<th>Score</th>";
+		ths_casde = ths_common + ths_solution + "<th>Delivered</th>";
+		ths_cass = ths_common + ths_solution + "<th>Score</th>";
+		ths_casdu = ths_common + ths_solution + "<th>Due</th>";
 
 		row = getRow();
 		row = table(row, 0, "Pending delivery", ths_cadu, trv_cadu);
-		row = table(row, 1, "Pending review", ths_cade, trv_cade);
-		row = table(row, 2, "Approved", ths_cas, trv_cas);
-		row = table(row, 4, "Rejected", ths_cas, trv_cas);
-		row = table(row, 5, "Overdue", ths_cadu, trv_cadu);
+		row = table(row, 1, "Pending review", ths_casde, trv_casde);
+		row = table(row, 2, "Approved", ths_cass, trv_cass);
+		row = table(row, 4, "Rejected", ths_cass, trv_cass);
+		row = table(row, 5, "Overdue", ths_casdu, trv_casdu);
 
 		html += "<script>"
 			+ "function twd (num)" // two digits
