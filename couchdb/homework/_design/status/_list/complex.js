@@ -140,6 +140,11 @@ function(head, req)
 
 			frag += "<tr>";
 
+			if (!req.query.semester)
+			{
+				frag += "<td>" + vd.semester + "</td>";
+			}
+
 			frag += "<td>" + vd.course + "</td>";
 
 			frag += "<td><a href=\"" + vd.doc_url + "\">"
@@ -192,8 +197,11 @@ function(head, req)
 			return row;
 		}
 
-		ths_common = "<th>Course</th><th>Assignment</th>";
+		ths_common = (req.query.semester ? "" : "<th>Semester</th>")
+			+ "<th>Course</th><th>Assignment</th>";
+
 		ths_solution = "<th>Solution Published?</th>";
+
 		ths_cadu = ths_common + "<th>Due</th>";
 		ths_casde = ths_common + ths_solution + "<th>Delivered</th>";
 		ths_cass = ths_common + ths_solution + "<th>Score</th>";
