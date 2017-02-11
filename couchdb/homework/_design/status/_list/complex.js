@@ -14,23 +14,78 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+function validate_query_params (query)
+{
+	qks_allowed = ['semester', 'course'].sort();
+	qks = [];
+
+	function err_inv_req_param ()
+	{
+		err = "<p>Query string contains an invalid "
+			+ "query parameter. Allowed "
+			+ "parameters are:</p>";
+		err += "<ul>";
+		for (i = 0 ; i < qks_allowed.length ; i++)
+		{
+			err += "<li>" + qks_allowed[i];
+		}
+		err += "</ul>";
+
+		return err;
+	}
+
+	for (qk in query)
+	{
+		if (query.hasOwnProperty(qk))
+		{
+			qks.push(qk);
+		}
+	}
+	qks = qks.sort();
+
+	if (qks.length > qks_allowed.length)
+	{
+		return err_inv_req_param();
+	}
+
+	i = 0;
+	j = 0;
+	while (i < qks.length && j < qks_allowed.length)
+	{
+		while (qks_allowed[j] < qks[i] && j < qks_allowed.length)
+		{
+			j++;
+		}
+
+		if (qks_allowed[j] !== qks[i])
+		{
+			return err_inv_req_param();
+		}
+
+		i++;
+	}
+
+	if (query.semester && !query.semester.match(
+		/^([0-9]{4,})\/(autumn|spring)$/))
+	{
+		return "<p>Invalid semester format.</p>";
+	}
+
+	if (query.course && !query.course.match(
+		/^([A-Z]{3,4})([0-9]{2}|[0-9]{4})([A-Z])?$/))
+	{
+		return "<p>Invalid course format.</p>";
+	}
+}
+
 function(head, req)
 {
 	provides("html", function ()
 	{
-		if (req.query.semester && !req.query.semester.match(
-			/^([0-9]{4,})\/(autumn|spring)$/))
+		if (err = validate_query_params(req.query))
 		{
-			return "Invalid semester format.";
+			return err;
 		}
-
-		if (req.query.course && !req.query.course.match(
-			/^([A-Z]{3,4})([0-9]{2}|[0-9]{4})([A-Z])?$/))
-		{
-			return "Invalid course format.";
-		}
-
-		// TODO: Refuse invalid request params
 
 		function sname (semid)
 		{
