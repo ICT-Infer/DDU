@@ -93,10 +93,12 @@ function(head, req)
 
 			if (vd.score_frac)
 			{
-				html += "<td><meter min=0" + " max=" + vd.score_frac[1]
-					+ " optimum=" + vd.score_frac[1] + " low="
-					+ vd.score_frac[1] + " value="
-					+ vd.score_frac[0] + ">" + vd.score_pct
+				html += "<td><meter min=0"
+					+ " max=" + vd.score_frac[1]
+					+ " optimum=" + vd.score_frac[1]
+					+ " low=" + vd.score_frac[1]
+					+ " value=" + vd.score_frac[0] + ">"
+					+	vd.score_pct
 					+ "</meter></td>";
 			}
 			else
@@ -142,7 +144,8 @@ function(head, req)
 				{
 					tr(trv, row);
 					row = getRow();
-				} while (row && ('key' in row) && row.key[0] === n)
+				} while (row && ('key' in row)
+					&& row.key[0] === n)
 
 				html += "</tbody></table>";
 			}
