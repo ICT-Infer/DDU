@@ -99,5 +99,37 @@ with open('Makefile', 'w') as makefile:
     #      Makefile. Pretty, pretty, pretty good, don't you think? :)
     #
 
-    makefile.write('\t./scripts/design_doc.py $(.ALLSRC) $^ $@')
+    makefile.write('\t./scripts/design_doc.py $(.ALLSRC) $^ $@\n\n')
+
+    #
+    # The targets for installation update and dependencies
+    #
+
+    makefile.write('config.json:\n')
+    makefile.write('\t@echo -e "\\n  You must create config.json manually. '
+        'See README.md for details.\\n" 1>&2\n')
+    makefile.write('\t@false\n\n')
+
+    makefile.write('installed:\n')
+    makefile.write('\t@echo -e "\\n  Cowardly refusing implicit triggering '
+        'of the install target." 1>&2\n')
+    makefile.write('\t@echo -e "  Explicit triggering is required. '
+        'See README.md for details.\\n" 1>&2\n')
+    makefile.write('\t@false\n\n')
+
+    # Installation update target
+
+    makefile.write('update: config.json installed')
+
+    for tgt in makefile_target_deps:
+
+        makefile.write(' ' + tgt)
+
+    makefile.write('\n')
+    makefile.write('\t./scripts/update.py')
+
+    for tgt in makefile_target_deps:
+
+        makefile.write(' ' + tgt)
+
     makefile.write('\n')
