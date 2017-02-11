@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 #
-# Copyright (c) 2016 Erik Nordstrøm <erikn@ict-infer.no>
+# Copyright (c) 2016, 2017 Erik Nordstrøm <erikn@ict-infer.no>
 #
 # Permission to use, copy, modify, and/or distribute this software for any
 # purpose with or without fee is hereby granted, provided that the above
