@@ -3,4 +3,6 @@ Makefile
 installed
 upgrade
 config.json
+version
+version.curr
 __pycache__/

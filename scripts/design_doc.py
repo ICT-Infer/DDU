@@ -27,6 +27,9 @@ deps = sys.argv[1:-1]
 
 design_doc = { '_id': '_design/' + tgt.split('/')[-1].split('.')[0] }
 
+with open('version') as verf:
+    design_doc['grev'] = verf.read().splitlines()[0]
+
 for dep in deps:
 
     untangle = dep.split('/')

@@ -75,6 +75,14 @@ with open('Makefile', 'w') as makefile:
 
     makefile.write('\n\n')
 
+    makefile.write('.PHONY: uversion\n')
+    makefile.write('uversion: ' + common_deps + '\n')
+    makefile.write('\t@./scripts/version.sh\n\n')
+
+    makefile.write('version: uversion\n')
+
+    common_deps += ' version'
+
     # deps of each target
 
     for tgt in makefile_target_deps:
