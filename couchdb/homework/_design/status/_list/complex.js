@@ -30,6 +30,8 @@ function(head, req)
 			return "Invalid course format.";
 		}
 
+		// TODO: Refuse invalid request params
+
 		function sname (semid)
 		{
 			sparts = semid.split('/');
