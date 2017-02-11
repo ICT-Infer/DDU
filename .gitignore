@@ -3,3 +3,4 @@ Makefile
 installed
 update
 config.json
+__pycache__/
