@@ -32,7 +32,7 @@ cd `pwd -P`
 git describe --dirty=+ 2>/dev/null > ../version.curr
 
 if [ -f ../version ] ; then
-	cmp ../version ../version.curr
+	cmp ../version ../version.curr >/dev/null
 	if [ $? -eq 0 ] ; then
 		rm ../version.curr
 	elif [ $? -eq 1 ] ; then
