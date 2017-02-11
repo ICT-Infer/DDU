@@ -18,7 +18,37 @@ function(head, req)
 {
 	provides("html", function ()
 	{
-		html = "<!DOCTYPE html><html lang=en><head><title>DDU</title>";
+		if (req.query.semester && !req.query.semester.match(
+			/^([0-9]{4,})\/(autumn|spring)$/))
+		{
+			return "Invalid semester format.";
+		}
+
+		if (req.query.course && !req.query.course.match(
+			/^([A-Z]{3,4})([0-9]{2}|[0-9]{4})([A-Z])?$/))
+		{
+			return "Invalid course format.";
+		}
+
+		function sname (semid)
+		{
+			sparts = semid.split('/');
+
+			return sparts[1].charAt(0).toUpperCase()
+				+ sparts[1].slice(1) + " " + sparts[0];
+		}
+
+		title = "DDU";
+
+		snamev = "";
+		if (req.query.semester)
+		{
+			snamev = sname(req.query.semester);
+			title = snamev + " - " + title;
+		}
+
+		html = "<!DOCTYPE html><html lang=en><head><title>"
+				+ title + "</title>";
 		html += "<style>"
 			+ "meter"
 			+ "{"
@@ -58,7 +88,7 @@ function(head, req)
 			+"</style>";
 		html += "</head>";
 
-		// html += "<p>" + JSON.stringify(req) + "</p>";
+		html += "<p>" + JSON.stringify(req) + "</p>";
 
 		function htmltime (datearr)
 		{
@@ -159,13 +189,10 @@ function(head, req)
 			{
 				changeq.semester = vd.semester;
 
-				sparts = vd.semester.split('/');
-				sname = sparts[1].charAt(0).toUpperCase()
-					+ sparts[1].slice(1) + " " + sparts[0];
-
 				frag += "<td><a href='" + req.raw_path
 					+ querystr(changeq) + "'>"
-						+ sname + "</a></td>";
+						+ sname(vd.semester)
+					+ "</a></td>";
 			}
 
 			frag += "<td>" + vd.course + "</td>";
