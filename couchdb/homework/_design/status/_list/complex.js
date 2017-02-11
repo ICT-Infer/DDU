@@ -88,7 +88,7 @@ function(head, req)
 			+"</style>";
 		html += "</head>";
 
-		html += "<p>" + JSON.stringify(req) + "</p>";
+		//html += "<p>" + JSON.stringify(req) + "</p>";
 
 		function htmltime (datearr)
 		{
