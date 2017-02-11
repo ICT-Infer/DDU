@@ -68,7 +68,7 @@ function(head, req)
 			return "<time datetime=" + ts + ">" + ts + "</time>";
 		}
 
-		function trv_cas (vd)
+		function trv_casol (vd)
 		{
 			frag = "";
 
@@ -92,7 +92,7 @@ function(head, req)
 		{
 			frag = "";
 
-			frag += trv_cas(vd);
+			frag += trv_casol(vd);
 
 			frag += "<td>" + htmltime(vd.delivered) + "</td>";
 
@@ -103,7 +103,7 @@ function(head, req)
 		{
 			frag = "";
 
-			frag += trv_cas(vd);
+			frag += trv_casol(vd);
 
 			if (vd.score_frac)
 			{
@@ -127,7 +127,7 @@ function(head, req)
 		{
 			frag = "";
 			
-			frag += trv_cas(vd);
+			frag += trv_casol(vd);
 			frag += trv_cadu(vd);
 
 			return frag;
@@ -200,12 +200,12 @@ function(head, req)
 		ths_common = (req.query.semester ? "" : "<th>Semester</th>")
 			+ "<th>Course</th><th>Assignment</th>";
 
-		ths_solution = "<th>Solution Published?</th>";
+		ths_sol = "<th>Solution Published?</th>";
 
 		ths_cadu = ths_common + "<th>Due</th>";
-		ths_casde = ths_common + ths_solution + "<th>Delivered</th>";
-		ths_cass = ths_common + ths_solution + "<th>Score</th>";
-		ths_casdu = ths_common + ths_solution + "<th>Due</th>";
+		ths_casde = ths_common + ths_sol + "<th>Delivered</th>";
+		ths_cass = ths_common + ths_sol + "<th>Score</th>";
+		ths_casdu = ths_common + ths_sol + "<th>Due</th>";
 
 		row = getRow();
 		row = table(row, 0, "Pending delivery", ths_cadu, trv_cadu);
