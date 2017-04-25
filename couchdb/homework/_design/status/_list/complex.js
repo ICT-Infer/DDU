@@ -212,6 +212,10 @@ function(head, req)
 					+	vd.score_pct
 					+ "</meter></td>";
 			}
+			else if (vd.not_graded)
+			{
+				frag += "<td>?</td>";
+			}
 			else
 			{
 				frag += "<td>N/A</td>";

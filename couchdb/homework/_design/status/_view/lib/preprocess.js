@@ -129,10 +129,17 @@ var assignment = function (doc)
 	if ((result.approved || result.rejected)
 		&& result.assignment_type === "oblig")
 	{
-		result.score_frac = doc.score;
-		result.score_ratio = doc.score;
-		result.score_pct = (100 * (doc.score[0]
-			/ doc.score[1])).toFixed(2) + "%";
+		if (doc.score)
+		{
+			result.score_frac = doc.score;
+			result.score_ratio = doc.score;
+			result.score_pct = (100 * (doc.score[0]
+				/ doc.score[1])).toFixed(2) + "%";
+		}
+		else
+		{
+			result.not_graded = true;
+		}
 	}
 	if (!result.pending_delivery && doc.has_solution_published)
 	{
